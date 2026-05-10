@@ -21,7 +21,7 @@ user_sessions = defaultdict(list)
 user_behavior = defaultdict(list) # История действий по пользователям
 session_data = defaultdict(dict) # Данные сессий
 hourly_activity = defaultdict(int) # Активность по часам
-#conversion_funnel = Counter() # Воронка конверсии
+conversion_funnel = Counter() # Воронка конверсии
 #product_performance = defaultdict(lambda: {
  #'views': 0, 'cart_adds': 0, 'purchases': 0, 'revenue': 0
 #})
@@ -36,6 +36,7 @@ message_count = 0
 try:
     for message in consumer:
         event = message.value
+        action = event['action']
         message_count += 1
 
         # Обновляем статистику
@@ -66,8 +67,12 @@ try:
 
         if event.get('price'):
             revenue_data.append(event['price'])
+            
+        # Воронка конверсии
+        if action in ['view_product', 'add_to_cart', 'purchase', 'search']:
+            conversion_funnel[action] += 1
 
-        print(f"Message {message_count}: {event['action']} - {event.get('product', 'N/A')} - User {event['user_id']}")
+        print(f"Message {message_count}: {event['action']} - {event.get('product', 'N/A')} - User {event['user_id']} - {event.get('price', 'N/A')}")
 
         # Показываем статистику каждые 10 сообщений
         if message_count % 10 == 0:
@@ -105,4 +110,27 @@ except KeyboardInterrupt:
         for hour in sorted(hourly_activity.keys()):
             print(f'{hour:02d}:00 - {hourly_activity[hour]} сообщений')
     else:
-        print('Нет данных активность по часам.')
+        print('\nНет данных активность по часам.')
+        
+    # Анализ Воронка конверсии
+    if conversion_funnel:
+        search = conversion_funnel['search']
+        views = conversion_funnel['view_product']
+        cart = conversion_funnel['add_to_cart']
+        purchases = conversion_funnel['purchase']
+
+        print(f'Поиск: {search}')
+        print(f'Просмотры: {views}')
+        print(f'Корзина: {cart}')
+        print(f'Покупки: {purchases}')
+
+        # Процент конверсии
+        if search > 0:
+            to_views_pct = (views / search) * 100
+            to_cart_pct = (cart / views) * 100
+            to_buy_pct = (purchases / cart) * 100 if cart > 0 else 0
+            print(f'\nКонверсия Поиск в Просмотр: {to_views_pct:.1f}%')
+            print(f'Конверсия Просмотр в Корзина: {to_cart_pct:.1f}%')
+            print(f'Конверсия Корзина в Покупка: {to_buy_pct:.1f}%')
+    else:
+        print('\nНет данных по воронке.')
