@@ -20,7 +20,7 @@ user_sessions = defaultdict(list)
 # Добавлены доп метрики для отслеживания
 user_behavior = defaultdict(list) # История действий по пользователям
 session_data = defaultdict(dict) # Данные сессий
-#hourly_activity = defaultdict(int) # Активность по часам
+hourly_activity = defaultdict(int) # Активность по часам
 #conversion_funnel = Counter() # Воронка конверсии
 #product_performance = defaultdict(lambda: {
  #'views': 0, 'cart_adds': 0, 'purchases': 0, 'revenue': 0
@@ -59,6 +59,10 @@ try:
         if 'users' not in session_data[sid]:
             session_data[sid]['users'] = set()
         session_data[sid]['users'].add(event['user_id'])
+        
+        # Активность по часам
+        event_hour = datetime.fromisoformat(event['timestamp']).hour # номер часа из ISO-строки
+        hourly_activity[event_hour] += 1
 
         if event.get('price'):
             revenue_data.append(event['price'])
@@ -95,3 +99,10 @@ except KeyboardInterrupt:
         print(f'\nУникальных сессий: {len(session_data)}')
     else:
         print('\nДанные сессий не собраны!')
+        
+    # Анализ активности по часам
+    if hourly_activity:
+        for hour in sorted(hourly_activity.keys()):
+            print(f'{hour:02d}:00 - {hourly_activity[hour]} сообщений')
+    else:
+        print('Нет данных активность по часам.')
