@@ -80,8 +80,8 @@ class BusinessMetrics:
         purchases = self.conversion_funnel['purchase']
 
         # Процент конверсии
-        to_views_pct = (views / search) * 100 if cart > 0 else 0
-        to_cart_pct = (cart / views) * 100 if cart > 0 else 0
+        to_views_pct = (views / search) * 100 if search > 0 else 0
+        to_cart_pct = (cart / views) * 100 if views > 0 else 0
         to_buy_pct = (purchases / cart) * 100 if cart > 0 else 0
         
         return{
@@ -116,11 +116,21 @@ class BusinessMetrics:
         top_users = df.groupby('user_id').size().sort_values(ascending=False).head(5)
         return [{"user_id": uid, "actions_count": int(count)} for uid, count in top_users.items()]
     
+    # Найти сессии с добавлением в корзину без покупки
+    def detect_abandoned_sessions(self):
+        abandoned_list = []
+        for sid, session_info in self.session_data.items():
+            actions = session_info.get('actions', [])
+            # Условие: Товар добавлен в корзину И покупка НЕ совершена
+            if 'add_to_cart' in actions and 'purchase' not in actions:
+                abandoned_list.append(sid)
+        return abandoned_list
         
     def print_periodic_report(self, message_count):
         rates = self.calculate_conversion_rates() # Рассчитать конверсии
         avg_session_val = self.calculate_average_session_value() #Средний чек сессии
         top_customers = self.find_top_customers() # Топ-5 самых активных пользователей
+        abandoned_sessions = self.detect_abandoned_sessions() # Найти сессии с добавлением в корзину без покупки
         # Показываем статистику каждые 20 сообщений
         
         print(f"\n--- Stats after {message_count} messages ---")
@@ -131,22 +141,26 @@ class BusinessMetrics:
         print("-" * 50)
         # Отображение Воронка конверсии
         print('\nВоронка конверсии:')
-        print(f'Поиск: {rates['search']}')
-        print(f'Просмотры: {rates['views']}')
-        print(f'Корзина: {rates['cart_adds']}')
-        print(f'Покупки: {rates['purchases']}')
-        print(f'Конверсия Поиск в Просмотр: {rates['to_views_pct']}%')
-        print(f'Конверсия Просмотр в Корзина: {rates['to_cart_pct']}%')
-        print(f'Конверсия Корзина в Покупка: {rates['to_buy_pct']}%')
+        print(f"Поиск: {rates['search']}")
+        print(f"Просмотры: {rates['views']}")
+        print(f"Корзина: {rates['cart_adds']}")
+        print(f"Покупки: {rates['purchases']}")
+        print(f"Конверсия Поиск в Просмотр: {rates['to_views_pct']}%")
+        print(f"Конверсия Просмотр в Корзина: {rates['to_cart_pct']}%")
+        print(f"Конверсия Корзина в Покупка: {rates['to_buy_pct']}%")
         print("-" * 50)
         print(f'\nСредний чек сессий: {avg_session_val}')
         print("-" * 50)
         print('\nТоп-5 самых активных пользователей:')
         if top_customers:
             for rank, cust in enumerate(top_customers, 1):
-                print(f'#{rank} | User: {cust['user_id']} | Actions: {cust['actions_count']}')
+                print(f"#{rank} | User: {cust['user_id']} | Actions: {cust['actions_count']}")
         else:
             print('Нет данных!')
+        print("-" * 50)
+        print(f'\nСессий с добавлением в корзину без покупки: {len(abandoned_sessions)}')
+        if abandoned_sessions:
+            print(f'ID сессий: {abandoned_sessions}')
         
         
     def print_final_analytics(self, message_count):
@@ -158,7 +172,7 @@ class BusinessMetrics:
         print('\nТоп-5 самых активных пользователей:')
         if top_customers:
             for rank, cust in enumerate(top_customers, 1):
-                print(f'#{rank} | User: {cust['user_id']} | Actions: {cust['actions_count']}')
+                print(f"#{rank} | User: {cust['user_id']} | Actions: {cust['actions_count']}")
         else:
             print('Нет данных!')
             
@@ -174,13 +188,19 @@ class BusinessMetrics:
         # Отображение Воронка конверсии
         rates = self.calculate_conversion_rates()
         print('\nВоронка конверсии:')
-        print(f'Поиск: {rates['search']} шт.')
-        print(f'Просмотры: {rates['views']} шт.')
-        print(f'Корзина: {rates['cart_adds']} шт.')
-        print(f'Покупки: {rates['purchases']} шт.')
-        print(f'Конверсия Поиск в Просмотр: {rates['to_views_pct']}%')
-        print(f'Конверсия Просмотр в Корзина: {rates['to_cart_pct']}%')
-        print(f'Конверсия Корзина в Покупка: {rates['to_buy_pct']}%')
+        print(f"Поиск: {rates['search']} шт.")
+        print(f"Просмотры: {rates['views']} шт.")
+        print(f"Корзина: {rates['cart_adds']} шт.")
+        print(f"Покупки: {rates['purchases']} шт.")
+        print(f"Конверсия Поиск в Просмотр: {rates['to_views_pct']}%")
+        print(f"Конверсия Просмотр в Корзина: {rates['to_cart_pct']}%")
+        print(f"Конверсия Корзина в Покупка: {rates['to_buy_pct']}%")
+        
+        # Сессии с добавлением в корзину без покупки
+        abandoned_sessions = self.detect_abandoned_sessions()
+        print(f'\nСессий с добавлением в корзину без покупки: {len(abandoned_sessions)}')
+        if abandoned_sessions:
+            print(f'ID сессий: {abandoned_sessions}')
         
         # Анализ Эффективность продукта
         if self.product_performance:
