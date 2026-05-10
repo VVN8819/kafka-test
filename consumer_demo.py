@@ -19,7 +19,7 @@ user_sessions = defaultdict(list)
 
 # Добавлены доп метрики для отслеживания
 user_behavior = defaultdict(list) # История действий по пользователям
-#session_data = defaultdict(dict) # Данные сессий
+session_data = defaultdict(dict) # Данные сессий
 #hourly_activity = defaultdict(int) # Активность по часам
 #conversion_funnel = Counter() # Воронка конверсии
 #product_performance = defaultdict(lambda: {
@@ -46,8 +46,19 @@ try:
 
         user_sessions[event['user_id']].append(event['action'])
         
-        # Учет доп метрик
+        # История действий по пользователям
         user_behavior[event['user_id']].append(event['action'])
+        
+        # Данные сессий
+        sid = event['session_id']
+        # Если списка действий в этой сессии ещё нет — создаём его
+        if 'actions' not in session_data[sid]:
+            session_data[sid]['actions'] = []
+        session_data[sid]['actions'].append(event['action'])
+        # Если множества пользователей ещё нет — создаём
+        if 'users' not in session_data[sid]:
+            session_data[sid]['users'] = set()
+        session_data[sid]['users'].add(event['user_id'])
 
         if event.get('price'):
             revenue_data.append(event['price'])
@@ -78,3 +89,9 @@ except KeyboardInterrupt:
 
     else:
         print(f'\nИстория действий по пользователям не собрана!')
+        
+    # Анализ сессий
+    if session_data:
+        print(f'\nУникальных сессий: {len(session_data)}')
+    else:
+        print('\nДанные сессий не собраны!')
