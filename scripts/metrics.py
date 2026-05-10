@@ -103,10 +103,24 @@ class BusinessMetrics:
         avg_value = total_revenue / len(self.session_data)
         
         return round(avg_value, 2)
+    
+    # Анализ "История действий по пользователям" Топ-5 самых активных пользователей
+    def find_top_customers(self):
+        if not self.user_behavior:
+            return []
+    
+        # Словарь в список для DataFrame
+        user_behav_data = [(uid, act) for uid, acts in self.user_behavior.items() for act in acts]
+        df = pd.DataFrame(user_behav_data, columns=['user_id', 'action'])
+        # список - 5 частых посетителей
+        top_users = df.groupby('user_id').size().sort_values(ascending=False).head(5)
+        return [{"user_id": uid, "actions_count": int(count)} for uid, count in top_users.items()]
+    
         
     def print_periodic_report(self, message_count):
         rates = self.calculate_conversion_rates() # Рассчитать конверсии
         avg_session_val = self.calculate_average_session_value() #Средний чек сессии
+        top_customers = self.find_top_customers() # Топ-5 самых активных пользователей
         # Показываем статистику каждые 20 сообщений
         
         print(f"\n--- Stats after {message_count} messages ---")
@@ -127,6 +141,12 @@ class BusinessMetrics:
         print("-" * 50)
         print(f'\nСредний чек сессий: {avg_session_val}')
         print("-" * 50)
+        print('\nТоп-5 самых активных пользователей:')
+        if top_customers:
+            for rank, cust in enumerate(top_customers, 1):
+                print(f'#{rank} | User: {cust['user_id']} | Actions: {cust['actions_count']}')
+        else:
+            print('Нет данных!')
         
         
     def print_final_analytics(self, message_count):
@@ -134,13 +154,13 @@ class BusinessMetrics:
         print("-" * 50)
         
         # Анализ "История действий по пользователям"
-        if self.user_behavior:
-            # Словарь в список для DataFrame
-            user_behav_data = [(uid, act) for uid, acts in self.user_behavior.items() for act in acts]
-            df = pd.DataFrame(user_behav_data, columns=['user_id', 'action'])
-            # список - 5 частых посетителей
-            top_users = df.groupby('user_id').size().sort_values(ascending=False).head(5)
-            print(f'5 частых посетителей: \n{top_users}')
+        top_customers = self.find_top_customers() # Топ-5 самых активных пользователей
+        print('\nТоп-5 самых активных пользователей:')
+        if top_customers:
+            for rank, cust in enumerate(top_customers, 1):
+                print(f'#{rank} | User: {cust['user_id']} | Actions: {cust['actions_count']}')
+        else:
+            print('Нет данных!')
             
         # Анализ сессий
         avg_session_val = self.calculate_average_session_value() #Средний чек сессии
