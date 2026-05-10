@@ -1,6 +1,9 @@
 import json
 from kafka import KafkaConsumer
 from collections import defaultdict, Counter
+import pandas as pd
+from datetime import datetime
+import numpy as np
 
 consumer = KafkaConsumer(
     'user-actions', # ящик с письмами
@@ -13,6 +16,16 @@ consumer = KafkaConsumer(
 action_stats = Counter()
 product_views = Counter()
 user_sessions = defaultdict(list)
+
+# Добавлены доп метрики для отслеживания
+user_behavior = defaultdict(list) # История действий по пользователям
+#session_data = defaultdict(dict) # Данные сессий
+#hourly_activity = defaultdict(int) # Активность по часам
+#conversion_funnel = Counter() # Воронка конверсии
+#product_performance = defaultdict(lambda: {
+ #'views': 0, 'cart_adds': 0, 'purchases': 0, 'revenue': 0
+#})
+
 revenue_data = []
 
 print("Starting to consume messages...")
@@ -32,6 +45,9 @@ try:
             product_views[event['product']] += 1
 
         user_sessions[event['user_id']].append(event['action'])
+        
+        # Учет доп метрик
+        user_behavior[event['user_id']].append(event['action'])
 
         if event.get('price'):
             revenue_data.append(event['price'])
@@ -49,3 +65,16 @@ try:
 
 except KeyboardInterrupt:
     print(f"\nStopped after {message_count} messages")
+    
+    # Анализ "История действий по пользователям"
+    if user_behavior:
+        # Словарь в список для DataFrame
+        user_behav_data = [(uid, act) for uid, acts in user_behavior.items() for act in acts]
+        df = pd.DataFrame(user_behav_data, columns=['user_id', 'action'])
+
+        # список - 5 частых посетителей
+        top_users = df.groupby('user_id').size().sort_values(ascending=False).head(5)
+        print(f'5 частых посетителей: {top_users}')
+
+    else:
+        print(f'\nИстория действий по пользователям не собрана!')
