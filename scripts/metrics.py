@@ -36,15 +36,12 @@ class BusinessMetrics:
         # История действий по пользователям
         self.user_behavior[user_id].append(action)
         
-        # Данные сессий
+        # Данные сессий, Средний чек сессии
         sid = event['session_id']
         # Если списка действий в этой сессии ещё нет — создаём его
-        if 'actions' not in self.session_data[sid]:
-            self.session_data[sid]['actions'] = []
+        if sid not in self.session_data:
+            self.session_data[sid] = {'actions': [], 'users': set(), 'revenue': 0.0}
         self.session_data[sid]['actions'].append(action)
-        # Если множества пользователей ещё нет — создаём
-        if 'users' not in self.session_data[sid]:
-            self.session_data[sid]['users'] = set()
         self.session_data[sid]['users'].add(user_id)
         
         # Активность по часам
@@ -53,6 +50,7 @@ class BusinessMetrics:
 
         if event.get('price'):
             self.revenue_data.append(event['price'])
+            self.session_data[sid]['revenue'] += event['price'] # Средний чек сессии
             
         # Воронка конверсии
         if action in ['view_product', 'add_to_cart', 'purchase', 'search']:
@@ -72,7 +70,8 @@ class BusinessMetrics:
                     self.product_performance[product]['revenue'] += price
         
         print(f"Message {message_count}: {event['action']} - {event.get('product', 'N/A')} - User {event['user_id']} - {event.get('price', 'N/A')}")
-                    
+    
+    # Рассчитать конверсии                
     def calculate_conversion_rates(self):
         # Анализ Воронка конверсии
         search = self.conversion_funnel['search']
@@ -94,9 +93,20 @@ class BusinessMetrics:
             'to_cart_pct': round(to_cart_pct, 2),
             'to_buy_pct': round(to_buy_pct, 2)
         }
+    
+    # Средний чек сессии
+    def calculate_average_session_value(self) -> float:
+        if not self.session_data:
+            return 0.0
+        # Суммируем выручку всех сессий и делим на их количество
+        total_revenue = sum(session.get('revenue', 0.0) for session in self.session_data.values())
+        avg_value = total_revenue / len(self.session_data)
+        
+        return round(avg_value, 2)
         
     def print_periodic_report(self, message_count):
-        rates = self.calculate_conversion_rates()
+        rates = self.calculate_conversion_rates() # Рассчитать конверсии
+        avg_session_val = self.calculate_average_session_value() #Средний чек сессии
         # Показываем статистику каждые 20 сообщений
         
         print(f"\n--- Stats after {message_count} messages ---")
@@ -115,6 +125,9 @@ class BusinessMetrics:
         print(f'Конверсия Просмотр в Корзина: {rates['to_cart_pct']}%')
         print(f'Конверсия Корзина в Покупка: {rates['to_buy_pct']}%')
         print("-" * 50)
+        print(f'\nСредний чек сессий: {avg_session_val}')
+        print("-" * 50)
+        
         
     def print_final_analytics(self, message_count):
         print(f"\nStopped after {message_count} messages")
@@ -130,7 +143,9 @@ class BusinessMetrics:
             print(f'5 частых посетителей: \n{top_users}')
             
         # Анализ сессий
+        avg_session_val = self.calculate_average_session_value() #Средний чек сессии
         print(f'\nУникальных сессий: {len(self.session_data)}')
+        print(f'\nСредний чек сессий: {avg_session_val}')
         
         # Анализ активности по часам
         for hour in sorted(self.hourly_activity.keys()):
