@@ -22,9 +22,12 @@ user_behavior = defaultdict(list) # История действий по пол�
 session_data = defaultdict(dict) # Данные сессий
 hourly_activity = defaultdict(int) # Активность по часам
 conversion_funnel = Counter() # Воронка конверсии
-#product_performance = defaultdict(lambda: {
- #'views': 0, 'cart_adds': 0, 'purchases': 0, 'revenue': 0
-#})
+product_performance = defaultdict(lambda: {
+    'views': 0,
+    'cart_adds': 0,
+    'purchases': 0,
+    'revenue': 0
+})
 
 revenue_data = []
 
@@ -71,6 +74,19 @@ try:
         # Воронка конверсии
         if action in ['view_product', 'add_to_cart', 'purchase', 'search']:
             conversion_funnel[action] += 1
+            
+        # Эффективность продукта
+        product = event.get('product')
+        if product:
+            if action == 'view_product':
+                product_performance[product]['views'] += 1
+            elif action == 'add_to_cart':
+                product_performance[product]['cart_adds'] += 1
+            elif action == 'purchase':
+                product_performance[product]['purchases'] += 1
+                price = event.get('price')
+                if price:
+                    product_performance[product]['revenue'] += price
 
         print(f"Message {message_count}: {event['action']} - {event.get('product', 'N/A')} - User {event['user_id']} - {event.get('price', 'N/A')}")
 
@@ -94,7 +110,7 @@ except KeyboardInterrupt:
 
         # список - 5 частых посетителей
         top_users = df.groupby('user_id').size().sort_values(ascending=False).head(5)
-        print(f'5 частых посетителей: {top_users}')
+        print(f'5 частых посетителей: \n{top_users}')
 
     else:
         print(f'\nИстория действий по пользователям не собрана!')
@@ -134,3 +150,12 @@ except KeyboardInterrupt:
             print(f'Конверсия Корзина в Покупка: {to_buy_pct:.1f}%')
     else:
         print('\nНет данных по воронке.')
+        
+    # Анализ Эффективность продукта
+    if product_performance:
+        df_products = pd.DataFrame(product_performance).T
+        # Сортируем по выручке для наглядности
+        df_products = df_products.sort_values(by='revenue', ascending=False)
+        print(f'Таблица Эффективность продукта: \n{df_products}')
+    else:
+        print(f'\nНет данных по Эффективность продукта')
