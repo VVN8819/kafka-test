@@ -1,3 +1,6 @@
+from collections import Counter
+from datetime import datetime, timedelta
+
 class AlertManager:
     
     def __init__(self):
@@ -54,3 +57,38 @@ class AlertManager:
             print("-" * 50)
             print(f'\nВысокий уровень отказов от корзины: {abandonment_rate:.1f}%')
             print("-" * 50)
+            
+    def check_user_activity(self, recent_events):
+        """
+        Проверить на подозрительную активность и бизнес-проблемы
+
+         Алерты:
+         3. Один пользователь делает >10 действий за минуту
+        """
+        print(f'Проверка на спам ЗАПУЩЕНА!')
+        
+        if not recent_events:
+            return
+        
+        # Определяем окно 1 мин
+        now = datetime.now()
+        min_ago = now - timedelta(minutes=1)
+        
+        user_counts = Counter()
+        
+        for event in recent_events:
+            # Получаем время события
+            event_time = datetime.fromisoformat(event['timestamp'])
+            
+            if event_time > min_ago:
+                user_counts[event['user_id']] += 1
+        
+        # 3. Проверяем > 10
+        if user_counts:
+            top_user, count = user_counts.most_common(1)[0]
+            
+            if count > 10:
+                print("-" * 50)
+                print(f'\nОдин пользователь делает >10 действий за минуту')
+                print(f'Пользователь {top_user} делает {count} действий за минуту')
+                print("-" * 50)
