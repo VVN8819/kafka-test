@@ -41,7 +41,8 @@ try:
         if message_count % 20 == 0:
             metrics.print_periodic_report(message_count)
             
-            alerts.check_for_alerts(recent_events)
+            alerts.check_logout_rate(recent_events)
+            alerts.check_abandonment_rate(recent_events)
 
 except KeyboardInterrupt:
     print(f"\nИтого:")
