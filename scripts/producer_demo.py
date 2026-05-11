@@ -28,7 +28,7 @@ print("Starting to send events...")
 print("Press Ctrl+C to stop")
 
 try:
-    for i in range(100):
+    for i in range(250):
         event = generate_user_action()
         producer.send('user-actions', value=event)
         print(f"Event {i + 1}: {event}")

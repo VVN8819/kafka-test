@@ -4,6 +4,7 @@ from metrics import BusinessMetrics
 from alert import AlertManager
 from exporter import DataExporter
 from dashboard import Dashboard
+from report import ReportGenerator
 import numpy as np
 
 consumer = KafkaConsumer(
@@ -18,6 +19,7 @@ metrics = BusinessMetrics()
 alerts = AlertManager()
 exporter = DataExporter()
 dashboard = Dashboard()
+reporter = ReportGenerator()
 
 print("Starting to consume messages...")
 print("Press Ctrl+C to stop and see analytics")
@@ -56,6 +58,7 @@ except KeyboardInterrupt:
     exporter.export_session_data_to_csv(metrics.session_data)
     exporter.save_real_time_metrics(metrics, message_count)
     dashboard.plot_dashboard(metrics)
+    reporter.print_executive_summary(metrics, message_count)
 
 finally:
     consumer.close()
