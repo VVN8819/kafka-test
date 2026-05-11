@@ -52,6 +52,7 @@ except KeyboardInterrupt:
     print(f"\nИтого:")
     metrics.print_final_analytics(message_count)
     exporter.export_session_data_to_csv(metrics.session_data)
+    exporter.save_real_time_metrics(metrics, message_count)
 
 finally:
     consumer.close()

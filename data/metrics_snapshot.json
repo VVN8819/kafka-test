@@ -1,0 +1,52 @@
+{
+  "snapshot_timestamp": "2026-05-11T22:47:37.376515",
+  "message_count": 100,
+  "conversion_funnel": {
+    "view_product": 21,
+    "purchase": 23,
+    "add_to_cart": 14,
+    "search": 18
+  },
+  "conversion_rates": {
+    "search": 18,
+    "views": 21,
+    "cart_adds": 14,
+    "purchases": 23,
+    "to_views_pct": 116.67,
+    "to_cart_pct": 66.67,
+    "to_buy_pct": 164.29
+  },
+  "revenue": {
+    "total_revenue": 21509,
+    "revenue_trans_count": 34,
+    "average_session_value": 1075.45
+  },
+  "hourly_activity": {
+    "22": 100
+  },
+  "top_customers": [
+    {
+      "user_id": 64,
+      "actions_count": 7
+    },
+    {
+      "user_id": 77,
+      "actions_count": 4
+    },
+    {
+      "user_id": 1,
+      "actions_count": 3
+    },
+    {
+      "user_id": 3,
+      "actions_count": 3
+    },
+    {
+      "user_id": 47,
+      "actions_count": 3
+    }
+  ],
+  "abandoned_sessions": 5,
+  "unique_session": 20,
+  "unique_users": 59
+}
