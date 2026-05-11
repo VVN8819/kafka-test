@@ -1,21 +1,21 @@
 session_id,user_id,actions,actions_count,revenue
-sid,"[37, 70, 73, 11, 46, 18, 82]","['search', 'add_to_cart', 'logout', 'view_product', 'logout', 'add_to_cart', 'add_to_cart']",7,1672.0
-sid,"[96, 33, 72, 40, 45, 79, 83, 25, 91, 95]","['search', 'add_to_cart', 'purchase', 'search', 'view_product', 'view_product', 'logout', 'add_to_cart', 'view_product', 'logout']",10,2093.0
-sid,"[98, 40, 47, 50, 89, 59]","['add_to_cart', 'view_product', 'search', 'add_to_cart', 'purchase', 'add_to_cart']",6,1000.0
-sid,"[34, 67, 72, 52, 30, 63]","['add_to_cart', 'add_to_cart', 'add_to_cart', 'logout', 'purchase', 'search']",6,1812.0
-sid,"[73, 25]","['purchase', 'purchase']",2,54.0
-sid,"[98, 2, 4, 39, 8, 74, 80, 18, 83, 22, 87, 59, 29]","['purchase', 'purchase', 'purchase', 'view_product', 'search', 'add_to_cart', 'purchase', 'add_to_cart', 'search', 'purchase', 'logout', 'search', 'view_product']",13,1811.0
-sid,"[33, 9, 79, 83, 31]","['purchase', 'logout', 'add_to_cart', 'search', 'logout']",5,769.0
-sid,"[35, 44, 27, 93, 95]","['view_product', 'add_to_cart', 'search', 'logout', 'view_product']",5,1866.0
-sid,"[25, 11, 29, 7]","['logout', 'search', 'search', 'logout', 'view_product']",5,978.0
-sid,"[97, 98, 67, 69, 84, 57]","['add_to_cart', 'add_to_cart', 'add_to_cart', 'view_product', 'logout', 'add_to_cart']",6,2221.0
-sid,"[75, 62]","['search', 'add_to_cart']",2,777.0
-sid,"[99, 37, 71, 7]","['add_to_cart', 'view_product', 'purchase', 'view_product']",4,85.0
-sid,"[99, 100, 40, 78, 58]","['logout', 'purchase', 'view_product', 'add_to_cart', 'add_to_cart']",5,554.0
-sid,"[100, 38, 76, 79, 51, 88, 93]","['view_product', 'view_product', 'purchase', 'search', 'search', 'logout', 'add_to_cart']",7,558.0
-sid,"[16, 59]","['view_product', 'search']",2,717.0
-sid,"[98, 36, 38, 20, 89]","['purchase', 'logout', 'add_to_cart', 'logout', 'logout']",5,1234.0
-sid,"[65, 18, 37, 14]","['add_to_cart', 'logout', 'view_product', 'view_product']",4,905.0
-sid,"[18, 59, 23]","['search', 'add_to_cart', 'logout']",3,0.0
-sid,[9],['add_to_cart'],1,0.0
-sid,"[26, 42]","['view_product', 'purchase']",2,380.0
+sid,"[11, 12, 77, 55, 25, 92, 95]","['search', 'purchase', 'logout', 'logout', 'purchase', 'add_to_cart', 'view_product']",7,933.0
+sid,"[8, 51]","['search', 'search']",2,0.0
+sid,"[99, 7, 8, 11, 24, 62, 93, 30]","['add_to_cart', 'purchase', 'add_to_cart', 'view_product', 'logout', 'view_product', 'logout', 'add_to_cart']",8,953.0
+sid,"[96, 98, 38, 17, 53, 23, 89, 27]","['add_to_cart', 'add_to_cart', 'view_product', 'logout', 'view_product', 'add_to_cart', 'logout', 'view_product']",8,2437.0
+sid,"[96, 68, 8, 9, 55]","['purchase', 'search', 'purchase', 'purchase', 'add_to_cart']",5,795.0
+sid,"[66, 70, 72, 16, 23, 25]","['view_product', 'add_to_cart', 'search', 'add_to_cart', 'logout', 'view_product']",6,2871.0
+sid,"[73, 42, 48, 50, 26]","['logout', 'view_product', 'add_to_cart', 'purchase', 'view_product']",5,1352.0
+sid,"[40, 97, 62, 38]","['purchase', 'search', 'add_to_cart', 'purchase']",4,0.0
+sid,"[97, 12, 5, 62]","['add_to_cart', 'search', 'purchase', 'search']",4,575.0
+sid,"[32, 40, 48, 54, 88, 89]","['view_product', 'logout', 'view_product', 'add_to_cart', 'view_product', 'logout']",6,180.0
+sid,"[8, 37, 31]","['view_product', 'add_to_cart', 'add_to_cart']",3,0.0
+sid,"[16, 69, 54, 87]","['view_product', 'add_to_cart', 'purchase', 'add_to_cart']",4,1112.0
+sid,"[1, 98, 6, 73, 60]","['purchase', 'logout', 'search', 'purchase', 'purchase']",5,823.0
+sid,"[56, 44, 53, 23]","['purchase', 'add_to_cart', 'add_to_cart', 'purchase', 'purchase']",5,0.0
+sid,"[98, 99, 42, 13, 31]","['view_product', 'search', 'search', 'add_to_cart', 'view_product']",5,3113.0
+sid,"[33, 35, 6, 8, 74, 19, 88, 25]","['view_product', 'logout', 'view_product', 'view_product', 'add_to_cart', 'search', 'search', 'add_to_cart']",8,2947.0
+sid,"[72, 9, 58, 34]","['add_to_cart', 'logout', 'add_to_cart', 'search']",4,0.0
+sid,"[8, 5, 21]","['view_product', 'logout', 'purchase']",3,1610.0
+sid,"[98, 35, 37, 70, 71, 50]","['search', 'view_product', 'add_to_cart', 'logout', 'search', 'view_product']",6,2033.0
+sid,"[40, 25]","['view_product', 'search']",2,1245.0

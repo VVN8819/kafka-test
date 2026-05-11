@@ -43,7 +43,7 @@ class Dashboard:
         plt.title('Воронка конверсии', fontsize=14, fontweight='bold')
         plt.ylabel('Количество событий')
         plt.xlabel('Этап воронки')
-        plt.xticks(rotation=45, ha='right')
+        plt.xticks(ha='right')
         plt.grid(axis='y', alpha=0.3)
         plt.tight_layout()
         
@@ -136,6 +136,45 @@ class Dashboard:
             plt.xlabel('User ID')
             plt.ylabel('Количество действий')
             plt.tight_layout()
+
+        # =============== График 4: Распределение длины сессий (histogram)==================
+        # Гистограмма количества действий в сессии
+        plt.subplot(2, 3, 4)
+        
+        # Количество действий в каждой сессии
+        session_lengths = [
+            len(data.get('actions', [])) 
+            for data in metrics.session_data.values()
+        ]
+        
+        if session_lengths:
+            n, bins, patches = plt.hist(
+                session_lengths, 
+                bins=10,  # Количество столбцов
+                color='#9b59b6',  # Фиолетовый для разнообразия
+                edgecolor='black', 
+                alpha=0.8,
+                rwidth=0.9
+            )
+            
+            plt.title('Распределение длины сессий', fontsize=14, fontweight='bold', pad=15)
+            plt.xlabel('Количество действий в сессии', fontsize=11)
+            plt.ylabel('Количество сессий', fontsize=11)
+            plt.grid(axis='y', alpha=0.3, linestyle='--')
+            
+            # Среднее значение
+            avg_length = np.mean(session_lengths)
+            plt.axvline(avg_length, color='red', linestyle='--', linewidth=1.5, 
+                       label=f'Среднее: {avg_length:.1f}')
+            plt.legend(fontsize=9)
+            plt.tight_layout()
+        else:
+            plt.text(0.5, 0.5, 'Нет данных о сессиях', 
+                    ha='center', va='center', fontsize=11, style='italic')
+            plt.title('Распределение длины сессий', fontsize=14, fontweight='bold')
+            plt.grid(True, alpha=0.2)
+            plt.tight_layout()
+
 
 
         # Сохранение
