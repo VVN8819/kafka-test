@@ -2,6 +2,7 @@ import json
 from kafka import KafkaConsumer
 from metrics import BusinessMetrics
 from alert import AlertManager
+from exporter import DataExporter
 import numpy as np
 
 consumer = KafkaConsumer(
@@ -14,6 +15,7 @@ consumer = KafkaConsumer(
 
 metrics = BusinessMetrics()
 alerts = AlertManager()
+exporter = DataExporter()
 
 print("Starting to consume messages...")
 print("Press Ctrl+C to stop and see analytics")
@@ -49,6 +51,7 @@ try:
 except KeyboardInterrupt:
     print(f"\nИтого:")
     metrics.print_final_analytics(message_count)
+    exporter.export_session_data_to_csv(metrics.session_data)
 
 finally:
     consumer.close()

@@ -101,6 +101,7 @@ class AlertManager:
          4. Нет покупок в последних 50 событиях
         """
         print(f'Проверка на отсутствие покупок ЗАПУЩЕНА!')
+        print("-" * 50)
         
         if len(recent_events) < 40:
             return
