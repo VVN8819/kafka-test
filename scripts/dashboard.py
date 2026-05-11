@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from pathlib import Path
+from collections import defaultdict
 
 plt.style.use('seaborn-v0_8-darkgrid')
 plt.rcParams['font.size'] = 10
@@ -16,7 +17,7 @@ class Dashboard:
     def plot_dashboard(self, metrics, save_path="kafka_analytics_dashboard.png"):
         fig = plt.figure(figsize=(16, 12))
         
-        # ========= Воронка конверсии (bar plot) ==============
+        # =========График 1: Воронка конверсии (bar plot) ==============
         # Покажите: просмотры → корзина → покупки
         plt.subplot(2, 3, 1)
         
@@ -46,7 +47,7 @@ class Dashboard:
         plt.grid(axis='y', alpha=0.3)
         plt.tight_layout()
         
-        # ============== Топ продуктов по выручке (horizontal bar) =================
+        # ==============График 2: Топ продуктов по выручке (horizontal bar) =================
         # Покажите выручку по каждому продукту
         plt.subplot(2, 3, 2)
         
@@ -82,6 +83,60 @@ class Dashboard:
             plt.title('Топ продуктов по выручке', fontsize=14, fontweight='bold')
             plt.grid(True, alpha=0.2)
             plt.tight_layout()
+            
+        # ===========График 3: Активность пользователей (scatter plot)=======
+        # X = user_id, Y = количество действий, размер точки = выручка
+        plt.subplot(2, 3, 3)
+        
+        # user_id, количество действий
+        user_activity = {uid: len(actions) for uid, actions in metrics.user_behavior.items()}
+        
+        # Считаем выручку по каждому пользователю
+        user_revenue = defaultdict(float)
+        for sid, data in metrics.session_data.items():
+            for uid in data.get('users', set()):
+                user_revenue[uid] += data.get('revenue', 0.0)
+        
+        if user_activity:
+            user_ids = list(user_activity.keys())
+            actions_count = [user_activity[uid] for uid in user_ids]
+            revenue = [user_revenue.get(uid, 0) for uid in user_ids]
+            
+            # Размер точки пропорционален выручке
+            sizes = [max(20, min(200, rev * 0.5)) for rev in revenue]
+            
+            scatter = plt.scatter(
+                user_ids, actions_count, 
+                s=sizes, 
+                c=actions_count, 
+                cmap='viridis', 
+                alpha=0.7, 
+                edgecolors='black',
+                linewidth=0.5
+            )
+            
+            # Подписи осей и заголовок
+            plt.title('Активность пользователей', fontsize=14, fontweight='bold', pad=15)
+            plt.xlabel('User ID', fontsize=11)
+            plt.ylabel('Количество действий', fontsize=11)
+            plt.grid(True, alpha=0.3, linestyle='--')
+            
+            # Легенда
+            plt.colorbar(scatter, label='Действий', pad=0.1)
+            
+            # Подпись про размер точки
+            plt.text(0.5, -0.15, 'Размер точки = выручка ($)', 
+                    ha='center', fontsize=9, style='italic', transform=plt.gca().transAxes)
+            plt.tight_layout()
+        else:
+            plt.text(0.5, 0.5, 'Нет данных о пользователях', 
+                    ha='center', va='center', fontsize=11, style='italic')
+            plt.title('Активность пользователей', fontsize=14, fontweight='bold')
+            plt.grid(True, alpha=0.2)
+            plt.xlabel('User ID')
+            plt.ylabel('Количество действий')
+            plt.tight_layout()
+
 
         # Сохранение
         if save_path:
