@@ -70,9 +70,10 @@ class BusinessMetrics:
                     self.product_performance[product]['revenue'] += price
         
         print(f"Message {message_count}: {event['action']} - {event.get('product', 'N/A')} - User {event['user_id']} - {event.get('price', 'N/A')}")
-    
+        
     # Рассчитать конверсии                
     def calculate_conversion_rates(self):
+        """Рассчитать конверсии view -> cart -> purchase"""
         # Анализ Воронка конверсии
         search = self.conversion_funnel['search']
         views = self.conversion_funnel['view_product']
@@ -96,6 +97,7 @@ class BusinessMetrics:
     
     # Средний чек сессии
     def calculate_average_session_value(self) -> float:
+        """Средний чек сессии"""
         if not self.session_data:
             return 0.0
         # Суммируем выручку всех сессий и делим на их количество
@@ -106,6 +108,7 @@ class BusinessMetrics:
     
     # Анализ "История действий по пользователям" Топ-5 самых активных пользователей
     def find_top_customers(self):
+        """Топ-5 самых активных пользователей"""
         if not self.user_behavior:
             return []
     
@@ -118,6 +121,8 @@ class BusinessMetrics:
     
     # Найти сессии с добавлением в корзину без покупки
     def detect_abandoned_sessions(self):
+        """Найти сессии с добавлением в корзину без покупки"""
+        #print('\nDEBUG: detect_abandoned_sessions вызвана')
         abandoned_list = []
         for sid, session_info in self.session_data.items():
             actions = session_info.get('actions', [])
@@ -161,6 +166,7 @@ class BusinessMetrics:
         print(f'\nСессий с добавлением в корзину без покупки: {len(abandoned_sessions)}')
         if abandoned_sessions:
             print(f'ID сессий: {abandoned_sessions}')
+        print("-" * 50)
         
         
     def print_final_analytics(self, message_count):

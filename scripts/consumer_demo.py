@@ -1,6 +1,7 @@
 import json
 from kafka import KafkaConsumer
 from metrics import BusinessMetrics
+from alert import AlertManager
 import numpy as np
 
 consumer = KafkaConsumer(
@@ -12,11 +13,16 @@ consumer = KafkaConsumer(
 )
 
 metrics = BusinessMetrics()
+alerts = AlertManager()
 
 print("Starting to consume messages...")
 print("Press Ctrl+C to stop and see analytics")
 
 message_count = 0
+
+#  Проверить на подозрительную активность и бизнес-проблемы
+recent_events = [] 
+ses_size = 20  # последние 20 сообщений
 
 try:
     for message in consumer:
@@ -25,10 +31,17 @@ try:
         
         # Обработка сообщения (metrics.py)
         metrics.process_event(event, message_count)
+        
+        #  Проверить на подозрительную активность и бизнес-проблемы
+        recent_events.append(event)
+        if len(recent_events) > ses_size:
+            recent_events.pop(0)
 
-        # Показываем статистику каждые 10 сообщений
+        # Показываем статистику каждые 20 сообщений
         if message_count % 20 == 0:
             metrics.print_periodic_report(message_count)
+            
+            alerts.check_for_alerts(recent_events)
 
 except KeyboardInterrupt:
     print(f"\nИтого:")
