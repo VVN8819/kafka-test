@@ -44,6 +44,7 @@ try:
             alerts.check_logout_rate(recent_events)
             alerts.check_abandonment_rate(recent_events)
             alerts.check_user_activity(recent_events)
+            alerts.check_no_purchases(recent_events)
 
 except KeyboardInterrupt:
     print(f"\nИтого:")

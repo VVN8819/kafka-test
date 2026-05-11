@@ -92,3 +92,23 @@ class AlertManager:
                 print(f'\nОдин пользователь делает >10 действий за минуту')
                 print(f'Пользователь {top_user} делает {count} действий за минуту')
                 print("-" * 50)
+                
+    def check_no_purchases(self, recent_events):
+        """
+        Проверить на подозрительную активность и бизнес-проблемы
+
+         Алерты:
+         4. Нет покупок в последних 50 событиях
+        """
+        print(f'Проверка на отсутствие покупок ЗАПУЩЕНА!')
+        
+        if len(recent_events) < 40:
+            return
+        
+        # any() возвращает True, если условие выполнилось хоть раз
+        has_purchase = any(event.get('action') == 'purchase' for event in recent_events)
+        
+        if not has_purchase:
+            print("-" * 50)
+            print(f'\nНет покупок в последних {len(recent_events)} событиях')
+            print("-" * 50)
