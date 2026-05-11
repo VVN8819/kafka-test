@@ -125,7 +125,7 @@ class Dashboard:
             plt.colorbar(scatter, label='Действий', pad=0.1)
             
             # Подпись про размер точки
-            plt.text(0.5, -0.15, 'Размер точки = выручка ($)', 
+            plt.text(0.5, -0.15, 'Размер точки = выручка', 
                     ha='center', fontsize=9, style='italic', transform=plt.gca().transAxes)
             plt.tight_layout()
         else:
@@ -216,8 +216,56 @@ class Dashboard:
                             fontsize=9, color='gray')
                 plt.tight_layout()
 
+        # ==============График 6: Соотношение типов действий (pie chart)================
+        # Круговая диаграмма распределения действий
+        plt.subplot(2, 3, 6)
+        
+        # данные о типах действий
+        action_counts = dict(metrics.action_stats)
+        
+        if action_counts:
+            # Данные для круговой диаграммы
+            labels = list(action_counts.keys())
+            sizes = list(action_counts.values())
+            
+            # Генерация цвета для каждого типа действия
+            colors = plt.cm.Set3(np.linspace(0, 1, len(labels)))
+            
+            # Самый частый тип действия
+            explode = [0.1 if s == max(sizes) else 0 for s in sizes]
+            
+            wedges, texts, autotexts = plt.pie(
+                sizes,
+                labels=labels,
+                autopct='%1.1f%%',  # Проценты с 1 знаком после запятой
+                startangle=90,
+                colors=colors,
+                explode=explode, # Выделяем лидер
+                shadow=True,
+                textprops={'fontsize': 9}
+            )
+            
+            # Проценты жирными и белыми для контраста
+            for autotext in autotexts:
+                autotext.set_color('white')
+                autotext.set_fontweight('bold')
 
-
+            plt.title('Распределение типов действий', fontsize=14, fontweight='bold', pad=15)
+            
+            # Легенда справа
+            plt.legend(
+                wedges, labels,
+                title="Действия",
+                loc="center left",
+                bbox_to_anchor=(1, 0.5),
+                fontsize=8
+            )
+            plt.tight_layout()
+        else:
+            plt.text(0.5, 0.5, 'Нет данных', 
+                    ha='center', va='center', fontsize=11, style='italic')
+            plt.title('Распределение типов действий', fontsize=14, fontweight='bold')
+            plt.tight_layout()
 
         # Сохранение
         if save_path:

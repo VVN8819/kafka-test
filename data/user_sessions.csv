@@ -1,21 +1,21 @@
 session_id,user_id,actions,actions_count,revenue
-sid,"[38, 33, 53, 30]","['add_to_cart', 'logout', 'search', 'view_product', 'view_product']",5,1015.0
-sid,"[38, 8, 73, 14, 82, 59]","['view_product', 'logout', 'logout', 'logout', 'view_product', 'purchase', 'logout']",7,1432.0
-sid,"[37, 38, 73, 74, 76, 93, 89, 59, 29]","['logout', 'add_to_cart', 'search', 'purchase', 'purchase', 'search', 'view_product', 'view_product', 'purchase']",9,498.0
-sid,"[8, 67, 85, 23]","['logout', 'purchase', 'logout', 'add_to_cart']",4,0.0
-sid,"[40, 81, 80, 76]","['search', 'view_product', 'view_product', 'search']",4,2448.0
-sid,"[99, 37, 74, 26, 30]","['purchase', 'add_to_cart', 'view_product', 'add_to_cart', 'logout', 'purchase']",6,1648.0
-sid,"[100, 68, 62, 71]","['view_product', 'add_to_cart', 'view_product', 'logout']",4,628.0
-sid,"[35, 4, 6, 29, 62, 31]","['search', 'purchase', 'purchase', 'logout', 'search', 'purchase']",6,1160.0
-sid,"[49, 26, 55]","['search', 'purchase', 'logout']",3,0.0
-sid,"[64, 27, 4, 20]","['view_product', 'view_product', 'purchase', 'purchase']",4,1289.0
-sid,"[96, 65, 99, 40, 73, 11, 80, 17, 53]","['logout', 'purchase', 'purchase', 'add_to_cart', 'view_product', 'logout', 'view_product', 'logout', 'logout']",9,1045.0
-sid,"[33, 69, 40, 75, 16, 62]","['add_to_cart', 'add_to_cart', 'purchase', 'view_product', 'add_to_cart', 'purchase']",6,3298.0
-sid,"[39, 43, 78, 20, 26, 91, 94]","['logout', 'view_product', 'purchase', 'search', 'logout', 'view_product', 'purchase']",7,0.0
-sid,"[1, 69, 74, 83, 25]","['add_to_cart', 'purchase', 'search', 'logout', 'add_to_cart']",5,0.0
-sid,"[97, 74, 13]","['add_to_cart', 'purchase', 'search']",3,0.0
-sid,"[41, 28, 4]","['purchase', 'add_to_cart', 'search']",3,1089.0
-sid,"[53, 61]","['view_product', 'logout']",2,414.0
-sid,"[6, 8, 10, 85, 29]","['search', 'search', 'logout', 'logout', 'search', 'search']",6,0.0
-sid,"[98, 76, 15]","['search', 'view_product', 'view_product', 'purchase']",4,0.0
-sid,"[9, 44, 36]","['add_to_cart', 'logout', 'view_product']",3,314.0
+sid,"[88, 65, 22]","['add_to_cart', 'purchase', 'logout']",3,1328.0
+sid,"[36, 40, 77, 23, 90]","['search', 'purchase', 'view_product', 'search', 'logout']",5,0.0
+sid,"[99, 3, 73, 12, 46, 82, 51, 61]","['search', 'logout', 'view_product', 'search', 'purchase', 'logout', 'search', 'logout']",8,2541.0
+sid,"[72, 98, 93, 29]","['view_product', 'logout', 'purchase', 'view_product', 'purchase']",5,129.0
+sid,"[96, 79, 18, 83, 23, 25]","['view_product', 'logout', 'purchase', 'view_product', 'search', 'purchase']",6,2140.0
+sid,"[90, 37, 45, 39]","['purchase', 'purchase', 'purchase', 'purchase']",4,328.0
+sid,"[74, 59, 45]","['logout', 'add_to_cart', 'logout']",3,2206.0
+sid,"[66, 73, 42, 74, 84, 94]","['purchase', 'view_product', 'search', 'view_product', 'view_product', 'logout']",6,2087.0
+sid,"[67, 75, 81, 22, 24]","['view_product', 'logout', 'logout', 'view_product', 'view_product']",5,1480.0
+sid,"[2, 35, 58, 79, 24, 25, 26]","['search', 'purchase', 'search', 'purchase', 'view_product', 'add_to_cart', 'purchase']",7,292.0
+sid,"[33, 38, 72, 50, 51]","['logout', 'logout', 'logout', 'add_to_cart', 'purchase']",5,1667.0
+sid,"[65, 36, 5, 40, 61, 19, 29]","['search', 'search', 'purchase', 'purchase', 'view_product', 'search', 'logout']",7,1438.0
+sid,"[65, 40, 78, 15, 53, 22, 55]","['view_product', 'purchase', 'logout', 'logout', 'add_to_cart', 'logout', 'search']",7,2454.0
+sid,"[73, 84, 25]","['logout', 'add_to_cart', 'add_to_cart']",3,1070.0
+sid,"[34, 77, 94, 15]","['view_product', 'purchase', 'add_to_cart', 'purchase']",4,739.0
+sid,"[45, 47, 83, 21, 88]","['search', 'search', 'search', 'add_to_cart', 'add_to_cart']",5,1027.0
+sid,"[32, 1, 38, 23, 88, 95]","['add_to_cart', 'add_to_cart', 'search', 'search', 'search', 'purchase']",6,2367.0
+sid,"[90, 28, 23]","['purchase', 'purchase', 'purchase']",3,240.0
+sid,"[35, 99, 46, 91, 62]","['logout', 'purchase', 'logout', 'purchase', 'add_to_cart']",5,0.0
+sid,"[57, 100]","['search', 'purchase', 'add_to_cart']",3,2686.0
