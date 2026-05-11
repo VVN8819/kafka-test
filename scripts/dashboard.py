@@ -174,6 +174,48 @@ class Dashboard:
             plt.title('Распределение длины сессий', fontsize=14, fontweight='bold')
             plt.grid(True, alpha=0.2)
             plt.tight_layout()
+            
+        # ================График 5: Активность по времени (line plot)===============
+        # Эмуляция активности по часам дня
+        plt.subplot(2, 3, 5)
+        
+        # Извлекаем данные: час → количество событий
+        hours = list(range(24))
+        activity = [metrics.hourly_activity.get(h, 0) for h in hours]
+        
+        # Если данных нет — показываем заглушку
+        if sum(activity) == 0:
+            plt.text(0.5, 0.5, 'Нет данных по времени', 
+                    ha='center', va='center', fontsize=11, style='italic')
+            plt.title('Активность по времени', fontsize=14, fontweight='bold')
+            plt.grid(True, alpha=0.2)
+            plt.tight_layout()
+        else:
+            # Рисуем линейный график с маркерами
+            plt.plot(hours, activity, 
+                    color='red',           # Красный для контраста
+                    marker='o', 
+                    linewidth=2, 
+                    markersize=4,
+                    label='События')
+
+            plt.title('Активность по времени', fontsize=14, fontweight='bold', pad=15)
+            plt.xlabel('Час суток', fontsize=11)
+            plt.ylabel('Количество событий', fontsize=11)
+            plt.xticks(range(0, 24, 4))  # Подписи каждые 4 часа
+            plt.grid(True, alpha=0.3, linestyle='--')
+            plt.tight_layout()
+            
+            # Подсветка пика активности
+            if max(activity) > 0:
+                peak_hour = activity.index(max(activity))
+                plt.annotate(f'Пик: {peak_hour}:00', 
+                            xy=(peak_hour, max(activity)), 
+                            xytext=(peak_hour+2, max(activity)*1.1),
+                            arrowprops=dict(arrowstyle='->', color='gray'),
+                            fontsize=9, color='gray')
+                plt.tight_layout()
+
 
 
 
