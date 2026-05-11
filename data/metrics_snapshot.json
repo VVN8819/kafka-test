@@ -1,53 +1,52 @@
 {
-  "snapshot_timestamp": "2026-05-12T01:02:34.699480",
+  "snapshot_timestamp": "2026-05-12T01:44:55.529437",
   "message_count": 100,
   "conversion_funnel": {
-    "add_to_cart": 21,
-    "view_product": 28,
-    "search": 16,
-    "purchase": 14
+    "add_to_cart": 29,
+    "view_product": 14,
+    "purchase": 29,
+    "search": 16
   },
   "conversion_rates": {
     "search": 16,
-    "views": 28,
-    "cart_adds": 21,
-    "purchases": 14,
-    "to_views_pct": 175.0,
-    "to_cart_pct": 75.0,
-    "to_buy_pct": 66.67
+    "views": 14,
+    "cart_adds": 29,
+    "purchases": 29,
+    "to_views_pct": 87.5,
+    "to_cart_pct": 207.14,
+    "to_buy_pct": 100.0
   },
   "revenue": {
-    "total_revenue": 30084,
-    "revenue_trans_count": 33,
-    "average_session_value": 1504.2
+    "total_revenue": 22151,
+    "revenue_trans_count": 29,
+    "average_session_value": 1107.55
   },
   "hourly_activity": {
-    "0": 35,
-    "1": 65
+    "1": 100
   },
   "top_customers": [
     {
-      "user_id": 25,
-      "actions_count": 6
+      "user_id": 56,
+      "actions_count": 5
     },
     {
-      "user_id": 80,
+      "user_id": 2,
       "actions_count": 4
     },
     {
-      "user_id": 59,
-      "actions_count": 4
-    },
-    {
-      "user_id": 16,
+      "user_id": 10,
       "actions_count": 3
     },
     {
-      "user_id": 11,
+      "user_id": 63,
       "actions_count": 3
+    },
+    {
+      "user_id": 65,
+      "actions_count": 2
     }
   ],
   "abandoned_sessions": 5,
   "unique_session": 20,
-  "unique_users": 61
+  "unique_users": 68
 }

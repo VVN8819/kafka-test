@@ -32,7 +32,7 @@ try:
         event = generate_user_action()
         producer.send('user-actions', value=event)
         print(f"Event {i + 1}: {event}")
-        time.sleep(2)
+        time.sleep(1)
 
 except KeyboardInterrupt:
     print("\nStopping producer...")

@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from pathlib import Path
 
 plt.style.use('seaborn-v0_8-darkgrid')
@@ -45,6 +46,43 @@ class Dashboard:
         plt.grid(axis='y', alpha=0.3)
         plt.tight_layout()
         
+        # ============== Топ продуктов по выручке (horizontal bar) =================
+        # Покажите выручку по каждому продукту
+        plt.subplot(2, 3, 2)
+        
+        product_revenue = {
+            product: data['revenue'] 
+            for product, data in metrics.product_performance.items()
+        }
+        
+        # Сортируем по выручке и берём топ-5
+        sorted_products = sorted(product_revenue.items(), key=lambda x: x[1], reverse=True)[:5]
+        
+        if sorted_products:
+            products, revenues = zip(*sorted_products)
+            
+            # Генерация цветов
+            colors = plt.cm.viridis(np.linspace(0.3, 0.9, len(products)))
+            bars = plt.barh(products, revenues, color=colors, edgecolor='black', alpha=0.9)
+            
+            # Подписи значений на барах
+            for bar, rev in zip(bars, revenues):
+                plt.text(bar.get_width() + rev*0.01, bar.get_y() + bar.get_height()/2, 
+                        f'${rev:.0f}', va='center', fontsize=9, fontweight='bold')
+                
+            plt.title('Топ продуктов по выручке', fontsize=14, fontweight='bold', pad=15)
+            plt.xlabel('Выручка', fontsize=11)
+            plt.ylabel('Продукт', fontsize=11)
+            plt.grid(axis='x', alpha=0.3, linestyle='--')  # Сетка по горизонтали
+            plt.gca().invert_yaxis()  # Чтобы топ-1 был сверху
+            plt.tight_layout()
+        else:
+            plt.text(0.5, 0.5, 'Нет данных о продуктах', 
+                    ha='center', va='center', fontsize=11, style='italic')
+            plt.title('Топ продуктов по выручке', fontsize=14, fontweight='bold')
+            plt.grid(True, alpha=0.2)
+            plt.tight_layout()
+
         # Сохранение
         if save_path:
             save_file = self.output_dir / save_path
