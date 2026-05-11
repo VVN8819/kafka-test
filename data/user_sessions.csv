@@ -1,21 +1,21 @@
 session_id,user_id,actions,actions_count,revenue
-sid,"[89, 49, 64, 44]","['view_product', 'purchase', 'search', 'view_product', 'purchase']",5,997.0
-sid,"[82, 75, 44, 95]","['add_to_cart', 'search', 'logout', 'purchase']",4,0.0
-sid,"[3, 6, 9, 74, 15, 19]","['purchase', 'logout', 'logout', 'search', 'purchase', 'logout']",6,172.0
-sid,"[64, 99, 74, 77, 61]","['view_product', 'logout', 'purchase', 'view_product', 'search']",5,0.0
-sid,"[64, 3, 61]","['purchase', 'logout', 'logout']",3,697.0
-sid,"[64, 66, 4, 46, 18, 83, 26, 27]","['add_to_cart', 'add_to_cart', 'view_product', 'logout', 'search', 'search', 'view_product', 'logout']",8,2767.0
-sid,"[1, 37, 9, 12, 19, 86, 55]","['search', 'view_product', 'view_product', 'view_product', 'purchase', 'purchase', 'search']",7,959.0
-sid,"[97, 35, 90, 47, 58]","['purchase', 'search', 'purchase', 'logout', 'add_to_cart']",5,1216.0
-sid,"[36, 14, 82, 30, 94]","['purchase', 'search', 'logout', 'search', 'search']",5,1207.0
-sid,"[8, 73, 76, 50, 22, 58]","['purchase', 'search', 'view_product', 'purchase', 'logout', 'add_to_cart']",6,3080.0
-sid,"[1, 68, 42, 17, 25]","['view_product', 'logout', 'purchase', 'logout', 'purchase', 'search']",6,802.0
-sid,"[64, 3, 73, 75, 90]","['purchase', 'view_product', 'view_product', 'view_product', 'logout']",5,1724.0
-sid,"[99, 19, 45]","['logout', 'search', 'add_to_cart']",3,0.0
-sid,"[2, 35, 67, 71, 41, 47, 81]","['add_to_cart', 'logout', 'purchase', 'purchase', 'add_to_cart', 'purchase', 'view_product', 'purchase']",8,2219.0
-sid,"[97, 92, 28, 7]","['purchase', 'add_to_cart', 'view_product', 'logout']",4,0.0
-sid,"[32, 64, 68, 77]","['logout', 'add_to_cart', 'add_to_cart', 'view_product']",4,1341.0
-sid,"[64, 77, 47, 18, 55, 59]","['logout', 'logout', 'add_to_cart', 'view_product', 'logout', 'search']",6,911.0
-sid,"[76, 77, 30, 22]","['add_to_cart', 'search', 'view_product', 'purchase']",4,53.0
-sid,"[94, 6]","['view_product', 'logout']",2,1129.0
-sid,"[16, 17, 12, 96]","['add_to_cart', 'view_product', 'logout', 'search']",4,2235.0
+sid,"[68, 100, 73, 9, 20, 62]","['add_to_cart', 'search', 'view_product', 'search', 'add_to_cart', 'view_product']",6,1512.0
+sid,"[80, 16, 59]","['logout', 'add_to_cart', 'logout', 'purchase']",4,869.0
+sid,"[97, 99, 14, 78, 51, 55, 23, 27]","['add_to_cart', 'view_product', 'add_to_cart', 'add_to_cart', 'view_product', 'purchase', 'search', 'logout']",8,2498.0
+sid,"[66, 100, 40, 73, 75, 13, 22, 90, 59]","['add_to_cart', 'add_to_cart', 'purchase', 'view_product', 'view_product', 'view_product', 'view_product', 'view_product', 'search']",9,3948.0
+sid,"[8, 78, 80, 82, 25]","['logout', 'search', 'view_product', 'logout', 'view_product']",5,3433.0
+sid,"[64, 25, 16]","['logout', 'add_to_cart', 'logout']",3,1343.0
+sid,"[72, 10, 12, 92, 51, 25, 28]","['add_to_cart', 'view_product', 'add_to_cart', 'logout', 'add_to_cart', 'add_to_cart', 'purchase']",7,1233.0
+sid,"[6, 40, 11, 49, 85]","['search', 'logout', 'add_to_cart', 'view_product', 'logout', 'search']",6,1452.0
+sid,[31],['logout'],1,0.0
+sid,"[32, 3, 4, 38, 47, 89, 28]","['search', 'purchase', 'search', 'search', 'purchase', 'view_product', 'logout']",7,2871.0
+sid,"[6, 39, 41, 14, 47]","['logout', 'add_to_cart', 'logout', 'purchase', 'purchase']",5,2820.0
+sid,"[32, 11, 20, 86, 88, 31]","['purchase', 'view_product', 'add_to_cart', 'purchase', 'view_product', 'logout']",6,0.0
+sid,"[84, 5, 60]","['view_product', 'view_product', 'view_product']",3,603.0
+sid,"[17, 69, 25, 15]","['search', 'add_to_cart', 'search', 'purchase']",4,135.0
+sid,"[27, 80, 91, 59]","['search', 'logout', 'view_product', 'logout']",4,2313.0
+sid,"[32, 10, 6, 39]","['search', 'logout', 'search', 'add_to_cart']",4,853.0
+sid,"[98, 36, 11, 16, 88, 58]","['logout', 'view_product', 'view_product', 'view_product', 'purchase', 'purchase']",6,1588.0
+sid,"[64, 69, 13, 80, 24, 25]","['logout', 'add_to_cart', 'add_to_cart', 'view_product', 'purchase', 'view_product']",6,1323.0
+sid,"[24, 89, 54, 94]","['logout', 'view_product', 'search', 'view_product']",4,1290.0
+sid,"[65, 25]","['view_product', 'add_to_cart']",2,0.0
