@@ -1,9 +1,17 @@
+from datetime import timedelta
 class ReportGenerator:
     
-    def print_executive_summary(self, metrics, message_count):
+    def print_executive_summary(self, metrics, message_count, duration: timedelta):
         """
         Напечатать executive summary для руководства
         """
+        # Время работы в минутах
+        total_seconds = duration.total_seconds()
+        minutes = int(total_seconds // 60)
+        
+        # Производительность (событий/сек)
+        efficiency = message_count / total_seconds if total_seconds > 0 else 0
+        
         # Уникальных пользователей
         unique_users = len(metrics.user_sessions)
 
@@ -39,6 +47,9 @@ class ReportGenerator:
         print(f"\n💰 Общая выручка: ${total_revenue:,.0f}")
         print(f"\n⭐ Топ продукт: {top_product_name} (${top_product_rev:,.0f})")
         print(f"\n⚠️ Алерты: {abandoned_count} подозрительных сессий")
+        print("=" * 45)
+        print("⚙️ Производительность")
+        print("=" * 45)
+        print(f"⏱️  Время работы системы: {minutes} мин")
+        print(f"🚀 Производительность: {efficiency:.2f} событий/сек")
         print("=" * 45 + "\n")
-            
-        

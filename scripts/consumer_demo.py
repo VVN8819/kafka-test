@@ -5,7 +5,7 @@ from alert import AlertManager
 from exporter import DataExporter
 from dashboard import Dashboard
 from report import ReportGenerator
-import numpy as np
+from datetime import datetime
 
 consumer = KafkaConsumer(
     'user-actions', # ящик с письмами
@@ -25,6 +25,8 @@ print("Starting to consume messages...")
 print("Press Ctrl+C to stop and see analytics")
 
 message_count = 0
+
+start_time = datetime.now()
 
 #  Проверить на подозрительную активность и бизнес-проблемы
 recent_events = [] 
@@ -58,7 +60,15 @@ except KeyboardInterrupt:
     exporter.export_session_data_to_csv(metrics.session_data)
     exporter.save_real_time_metrics(metrics, message_count)
     dashboard.plot_dashboard(metrics)
-    reporter.print_executive_summary(metrics, message_count)
+    
+    end_time = datetime.now()
+    duration = end_time - start_time
+    
+    reporter.print_executive_summary(
+        metrics=metrics, 
+        message_count=message_count, 
+        duration=duration
+    )
 
 finally:
     consumer.close()
