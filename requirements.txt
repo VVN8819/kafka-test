@@ -1,0 +1,43 @@
+# pip install kafka-python pandas matplotlib numpy
+
+# producer_demo.py
+import json
+import random
+import time
+from kafka import KafkaProducer
+from datetime import datetime
+
+# concumer_demo.py
+import json
+from kafka import KafkaConsumer
+from metrics import BusinessMetrics
+from alert import AlertManager
+from exporter import DataExporter
+from dashboard import Dashboard
+from report import ReportGenerator
+from datetime import datetime
+
+# metrics.py
+from collections import defaultdict, Counter
+import pandas as pd
+from datetime import datetime
+
+# alert.py
+from collections import Counter
+from datetime import datetime, timedelta
+
+# dashboard.py
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from pathlib import Path
+from collections import defaultdict
+
+# exporter.py
+import pandas as pd
+from pathlib import Path
+import json
+from datetime import datetime
+
+# report.py
+from datetime import timedelta
